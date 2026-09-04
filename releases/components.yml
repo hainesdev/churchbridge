@@ -1,0 +1,45 @@
+# ChurchBridge component manifest
+#
+# Records the reviewed commit of each component for a named product release.
+#
+# This is a DOCUMENTATION MANIFEST, not a submodule lockfile. Nothing reads it
+# at build or deploy time. The platform and the iOS app have independent release
+# cycles; this file states which commits were verified to work together, so that
+# a reported issue can be traced to a known combination.
+#
+# Add a new entry per named release. Do not rewrite history in this file.
+
+schema_version: 1
+
+releases: []
+# Template for the first named release — fill in once the components below have
+# been reviewed, tested together, and published:
+#
+#   - name: "2026.1"
+#     date: 2026-00-00
+#     status: draft            # draft | released | superseded
+#     notes: >
+#       One or two sentences on what this release changes for a church running
+#       it, in plain language.
+#     components:
+#       platform:
+#         repository: https://github.com/hainesdev/churchbridge-platform
+#         ref: main
+#         commit: "0000000000000000000000000000000000000000"
+#       ios:
+#         repository: https://github.com/hainesdev/churchbridge-ios
+#         ref: main
+#         commit: "0000000000000000000000000000000000000000"
+
+# Current development state, recorded for reference only. These are NOT a
+# release and have not been through the publication review.
+development_state:
+  recorded: 2026-09-04
+  platform:
+    repository: https://github.com/hainesdev/churchbridge-platform
+    ref: main
+    commit: "82c1ce59fe40d238339aac1f3a936a3f63c20660"
+  ios:
+    repository: https://github.com/hainesdev/churchbridge-ios
+    ref: main
+    commit: "86701acdce3e06b3e38ec2b55888a0e49dd7e214"
