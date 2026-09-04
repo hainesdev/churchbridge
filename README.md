@@ -78,6 +78,27 @@ the previous one, the *earliest* segment keeps its position on screen and later
 fragments are absorbed into it. Three fragments become one stable caption, right
 where the first one already was.
 
+**Scripture is handled as scripture, not as text that happens to be quoted.**
+
+When a preacher cites a passage, the citation is detected inside the same
+enrichment turn that judges the sentence's structure — it shares that context, so
+it costs nothing extra. The reference is then looked up in a local Bible corpus
+and rendered *twice*: in the source version the preacher is quoting from, and in
+the display version the congregation reads. A Spanish citation from Reina-Valera
+appears on screen in English, as the actual passage, while the preacher is still
+on it.
+
+Separately, ChurchBridge suggests one to three related cross-references per
+display-ready sentence. That runs as its own lightweight call *after* the
+structural decision has already settled, and it is deliberately not allowed to
+delay buffering, gating, or merge repair — suggestions are the least urgent thing
+on screen and are treated that way. Sermon mode gates them: no cross-references
+during procedural announcements, none for fragments or sentences still pending.
+
+Both follow the caption merge chain. When fragments are absorbed into an earlier
+caption, verse events are re-pointed at the surviving segment, so a citation never
+ends up attached to a caption that no longer exists.
+
 **Capture is treated as an engineering problem, not a given.**
 
 Sanctuary audio is hostile — PA bleed, room reverberation, a soundboard feed of
@@ -105,9 +126,15 @@ This is a working system, not a proposal.
 - **Head-anchored caption merges** with adaptive deferred release.
 - **Sermon state tracking** — scripture, exposition, illustration, application,
   exhortation, procedural — feeding a rolling theological context tracker.
+- **Scripture citation detection**, hydrated from a local Bible corpus in both a
+  source version and a display version, with per-church version selection.
 - **Scripture cross-references** suggested per display-ready sentence, on a
   separate lightweight call so they never compete with structural decisions for
   model attention.
+- **A scripture side panel** separating passages the preacher actually cited from
+  related references the system suggests.
+- **Offline scripture on device** — the iPhone app bundles its own Bible
+  database, so lookups do not depend on the network.
 - **Two delivery surfaces** — a sanctuary display in kiosk mode, and a mobile
   listener PWA reachable by QR code.
 - **A benchmark harness** for provider and model comparison, pipeline
@@ -152,6 +179,10 @@ This is a working system, not a proposal.
                   │      ▼                   ▼
                   │  translation_update   deferred release
                   │      │                or caption_merge
+                  │      ▼                   │
+                  │  verse suggestions       │
+                  │  (separate async call,   │
+                  │   gated by sermon mode)  │
                   ▼      ▼                   │
               Broadcaster ◄──────────────────┘
                   │
