@@ -99,13 +99,40 @@ Both follow the caption merge chain. When fragments are absorbed into an earlier
 caption, verse events are re-pointed at the surviving segment, so a citation never
 ends up attached to a caption that no longer exists.
 
-**Capture is treated as an engineering problem, not a given.**
+**Capture is the hardest part, and it is treated that way.**
 
-Sanctuary audio is hostile — PA bleed, room reverberation, a soundboard feed of
-unknown quality. Alongside browser capture from the soundboard, a native iPhone
-app handles production-quality voice capture using iOS audio processing, with
-live diagnostics for route, sample rate, clipping, speech activity, and
-reconnection state.
+Everything downstream is bounded by what the microphone actually hears, and a
+live church service is a genuinely hostile room: music and congregational
+response overlapping the preacher, PA reinforcement bleeding back into the mic,
+and reverberation off hard surfaces. A phone in that room is not a soundboard
+feed. Most of the engineering in the iPhone app is about that gap.
+
+**Noise suppression runs on the device, before audio leaves it.** The app carries
+a full streaming implementation of DeepFilterNet3 — the neural network in Core
+ML, with the signal chain around it written in Swift against Accelerate: STFT
+analysis and synthesis, an ERB filterbank and its inverse, overlap-add memory,
+and normalization state carried across frames so enhancement stays continuous on
+a live stream rather than being applied per-buffer. Model assets are fetched from
+the platform at runtime instead of being baked into the app.
+
+**Three capture paths, chosen by capability, never silently.** Apple's voice
+processing is preferred on real hardware; there is an echo-cancelled input path
+and a raw path behind it. The app reports which one is actually active and *why*
+it fell back, rather than quietly degrading and leaving the room to wonder why
+the captions got worse.
+
+**About twenty-five live diagnostics** — audio route and its inputs and outputs,
+input and target sample rate, channel count and format, clipping, RMS level,
+noise floor, speech activity, voice-processing and AGC state, echo-cancelled
+input availability, chunk counts, engine state. When capture degrades mid-service
+you want to know which link failed, on the spot.
+
+The path there was not clean, and the notes in the repository say so: an initial
+tap on the voice-processing I/O graph crashed, a redesign around `AVAudioSinkNode`
+crashed differently, and the working design came from rebuilding around Apple's
+current sample. The simulator is explicitly treated as unfit for judging audio
+quality — build and flow validation only. Capture decisions get made on real
+hardware in a real room.
 
 ## What works today
 
@@ -113,6 +140,14 @@ This is a working system, not a proposal.
 
 - **Live capture** from a soundboard through the browser, or from a native
   iPhone app.
+- **On-device neural noise suppression** — a streaming DeepFilterNet3
+  implementation in Core ML with a Swift/Accelerate STFT and ERB filterbank
+  front end, with model assets served from the platform.
+- **Capability-selected capture paths** — Apple voice processing, echo-cancelled
+  input, or raw — with the active path and any fallback reason surfaced in the
+  app.
+- **Deep capture diagnostics** — route, format, sample rate, clipping, RMS,
+  noise floor, speech activity, AGC and echo-cancellation state, chunk flow.
 - **Streaming speech recognition** with a provider-selected backend (Deepgram
   `nova-*` by default; Google Speech supported).
 - **Bilingual handling** — Spanish routed through translation, English passed
@@ -200,7 +235,7 @@ alignment payloads, persistence boundaries — lives in the platform repository.
 | Repository | What it is |
 | --- | --- |
 | [churchbridge-platform](https://github.com/hainesdev/churchbridge-platform) | Web client, FastAPI backend, translation pipeline, sanctuary display, mobile listener, deployment |
-| [churchbridge-ios](https://github.com/hainesdev/churchbridge-ios) | Native SwiftUI iPhone app for production-quality voice capture |
+| [churchbridge-ios](https://github.com/hainesdev/churchbridge-ios) | Native SwiftUI iPhone app: voice capture, on-device DeepFilterNet3 noise suppression, capture diagnostics, offline scripture reader |
 
 See [`docs/repositories.md`](docs/repositories.md) for the full map, including
 what is intentionally not published.
