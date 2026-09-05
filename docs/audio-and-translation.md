@@ -1,7 +1,7 @@
 # Audio and translation pipeline
 
 How sound becomes captions. This document covers the audio path in detail and
-hands off to the discourse pipeline, which is summarised in the
+hands off to the discourse pipeline, which is summarized in the
 [README](../README.md).
 
 ## The wire contract
@@ -31,7 +31,7 @@ the socket.
 
 The reasoning is that browser DSP is tuned for conference calls, not for
 recognition — it is aggressive, not configurable, and it removes information the
-recogniser could have used. Capture stays as close to raw as the browser allows
+recognizer could have used. Capture stays as close to raw as the browser allows
 and noise handling happens elsewhere.
 
 ## Native iPhone capture
@@ -87,7 +87,7 @@ position as previous comparison runs."*
 
 At full strength the noise floor dropped 25 to 44 dB — and intelligibility went
 with it. The mask closes over quiet speech as readily as over broadband noise,
-and in the worst runs the recogniser returned nothing at all. Measurably
+and in the worst runs the recognizer returned nothing at all. Measurably
 quieter, materially worse.
 
 The wet/dry mix was built in response, and the shipped value was selected by
@@ -95,19 +95,19 @@ The wet/dry mix was built in response, and the shipped value was selected by
 factor, because it could not be trusted: a playback timing offset in the rig
 shifts recorded audio relative to its reference transcript, and word error rate
 counts that drift as words missed or invented. Repairing that alignment is
-outstanding work, and until it lands the tuning rests on human judgement.
+outstanding work, and until it lands the tuning rests on human judgment.
 
 ### DeepFilterNet3 configuration
 
 `fftSize 960`, `hopSize 480`, `erbBands 32`, `dfBins 96`, `dfOrder 5`,
 `dfLookahead 2`, `sampleRate 48000`, `normTau 1.0` — 481 frequency bins, with
-running normalisation smoothed by `exp(-hopSize / sampleRate / normTau)` so
-normalisation state carries across frames rather than resetting per buffer.
+running normalization smoothed by `exp(-hopSize / sampleRate / normTau)` so
+normalization state carries across frames rather than resetting per buffer.
 
 The neural network runs in Core ML (`computeUnits = .all`), taking `feat_erb`
 and `feat_spec` and returning `erb_mask` and `df_coefs`. The STFT analysis and
 synthesis, the ERB filterbank and its inverse, overlap-add memory, and the
-normalisation state are all implemented in Swift against Accelerate.
+normalization state are all implemented in Swift against Accelerate.
 
 It requires iOS 18 or newer. If the model or its assets cannot be loaded, the
 app surfaces the reason and continues on Apple voice processing alone rather
@@ -170,7 +170,7 @@ offset makes word error rate untrustworthy for comparing nearby configurations.
 No accuracy figure from it should be quoted until that is fixed.
 
 **Two surfaces, two philosophies.** The browser path disables noise suppression
-and lets the recogniser cope; the native path runs neural suppression before
+and lets the recognizer cope; the native path runs neural suppression before
 sending. That difference is deliberate — a phone in a room and a soundboard feed
 are different problems — but it does mean the two surfaces do not produce
 identical audio for the same service.

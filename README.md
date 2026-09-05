@@ -101,7 +101,7 @@ point.**
 Running the model at full strength is the intuitive choice, and by every noise
 measurement it looked spectacular — 25 to 44 dB of noise floor simply gone. It
 also made the captions worse. At full strength the mask closes over quiet speech
-as readily as over a fan; in the worst test runs the recogniser returned nothing
+as readily as over a fan; in the worst test runs the recognizer returned nothing
 at all. A room can be measurably quieter and less intelligible at the same time.
 
 So the enhanced signal is mixed back at **25%**, with the rest left dry. The
@@ -211,7 +211,7 @@ rig produces should be quoted. Fixing the alignment is the highest-value work in
 the audio stack, because everything else in it is waiting on trustworthy
 numbers.
 
-**The suppression tuning is a judgement, not a result.** 25% wet was chosen by
+**The suppression tuning is a judgment, not a result.** 25% wet was chosen by
 ear. It is clearly better than full strength and clearly better than nothing;
 whether it beats 30% or 35% is genuinely unknown, and cannot be settled until
 the scoring above is repaired.
@@ -226,7 +226,7 @@ configuration fixes 48 kHz and is invoked with whatever the hardware input rate
 happens to be. On iPhone hardware these agree. Nothing enforces it.
 
 **The two capture surfaces disagree on principle.** The browser path disables
-noise suppression and lets the recogniser cope; the phone runs neural
+noise suppression and lets the recognizer cope; the phone runs neural
 suppression before sending. Both choices are defensible for their context, but
 the same service does not sound the same from both sources.
 

@@ -9,7 +9,7 @@ affected repository (Security → Report a vulnerability), or to the contact
 listed in the platform repository.
 
 Please include what you found, how to reproduce it, and what an attacker could
-do with it. You will get an acknowledgement, and an assessment once the issue
+do with it. You will get an acknowledgment, and an assessment once the issue
 has been reproduced.
 
 ## Scope

@@ -33,13 +33,17 @@ releases: []
 
 # Current development state, recorded for reference only. These are NOT a
 # release and have not been through the publication review.
+#
+# Note: the platform repository's history was rewritten on 2026-09-05 to remove
+# third-party media, so every commit before that point has a new SHA. Any older
+# reference to a platform commit will not resolve.
 development_state:
-  recorded: 2026-09-04
+  recorded: 2026-09-05
   platform:
     repository: https://github.com/hainesdev/churchbridge-platform
     ref: main
-    commit: "82c1ce59fe40d238339aac1f3a936a3f63c20660"
+    commit: "ee41914d0381a14a33335a28d83d783a3868704f"
   ios:
     repository: https://github.com/hainesdev/churchbridge-ios
     ref: main
-    commit: "86701acdce3e06b3e38ec2b55888a0e49dd7e214"
+    commit: "ddc7c8d27a7dd05b16b0a77f102730711f741984"
