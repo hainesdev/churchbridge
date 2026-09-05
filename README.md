@@ -115,6 +115,19 @@ and normalization state carried across frames so enhancement stays continuous on
 a live stream rather than being applied per-buffer. Model assets are fetched from
 the platform at runtime instead of being baked into the app.
 
+**The obvious setting was wrong, and finding that out was the point.**
+Running the model at full strength is the intuitive choice, and by every noise
+measurement it looked spectacular — 25 to 44 dB of noise floor simply gone. It
+also made the captions worse. At full strength the mask closes over quiet speech
+as readily as over a fan; in the worst test runs the recogniser returned nothing
+at all. A room can be measurably quieter and less intelligible at the same time.
+
+So the enhanced signal is mixed back at **25%**, with the rest left dry. The
+model corrects the signal instead of replacing it, loudness compensation keeps
+the mix at the level of the original, and a limiter catches the result. That
+value was chosen by listening to captured audio rather than by a metric — for an
+honest account of why, see [what still needs work](#what-still-needs-work).
+
 **Three capture paths, chosen by capability, never silently.** Apple's voice
 processing is preferred on real hardware; there is an echo-cancelled input path
 and a raw path behind it. The app reports which one is actually active and *why*
@@ -274,6 +287,49 @@ separate written license.
 Each repository carries a plain-language `LICENSE-FAQ.md`. For commercial
 licensing, hosted ChurchBridge, or deployment help, see the contact details in
 the platform repository.
+
+## What still needs work
+
+A source-available project should be honest about its edges. These are the ones
+that matter.
+
+**Benchmark scoring is not trustworthy yet.** A playback timing offset in the
+capture rig shifts recorded audio relative to its reference transcript, and word
+error rate is acutely sensitive to that — a timing slip is counted as words
+missed or invented when nothing was misrecognised. Until it is fixed, tuning
+decisions rest on listening rather than measurement, and no accuracy figure this
+rig produces should be quoted. Fixing the alignment is the highest-value work in
+the audio stack, because everything else in it is waiting on trustworthy
+numbers.
+
+**The suppression tuning is a judgement, not a result.** 25% wet was chosen by
+ear. It is clearly better than full strength and clearly better than nothing;
+whether it beats 30% or 35% is genuinely unknown, and cannot be settled until
+the scoring above is repaired.
+
+**Resampling aliases.** Conversion to 16 kHz on the server is linear
+interpolation with no anti-aliasing filter, so content above 8 kHz folds back
+into the speech band. The effect is modest, it is cheap to fix, and it sits
+upstream of every recognition result.
+
+**The 48 kHz assumption is implicit.** The noise suppression model's
+configuration fixes 48 kHz and is invoked with whatever the hardware input rate
+happens to be. On iPhone hardware these agree. Nothing enforces it.
+
+**The two capture surfaces disagree on principle.** The browser path disables
+noise suppression and lets the recogniser cope; the phone runs neural
+suppression before sending. Both choices are deliberate and defensible for their
+context, but the same service does not sound the same from both sources.
+
+**Stored transcripts can differ from what the congregation saw.** Session
+history records the first committed version of a segment. Later revisions and
+caption merges are broadcast live but do not rewrite the stored record, so an
+archived transcript can disagree with the repaired caption that was actually on
+screen.
+
+**No published accuracy numbers.** Not because they are bad — because we do not
+yet trust our own measurement of them. That is the first thing on the list
+above.
 
 ## Where it's going
 
