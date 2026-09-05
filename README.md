@@ -187,6 +187,11 @@ This is a working system, not a proposal.
   listener PWA reachable by QR code.
 - **A benchmark harness** for provider and model comparison, pipeline
   degradation testing, and scorecard tracking.
+- **A purpose-built measurement rig** — a standalone iOS benchmark app and a
+  Python controller that play sermon audio into a real room, capture it from a
+  phone in a fixed position, and compare five capture pipelines under identical
+  acoustic conditions. Capture decisions are made with an instrument, not a
+  hunch. See [`docs/repositories.md`](docs/repositories.md).
 
 ## Architecture
 

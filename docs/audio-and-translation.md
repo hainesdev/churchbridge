@@ -68,10 +68,22 @@ to that value before starting capture, so this is what runs in a service:
 
 ### How the mix was chosen
 
-Full-strength suppression was tested first, in a room with a box fan running,
-using a purpose-built benchmark rig: a separate iPhone app driven over a control
-socket by a Python controller, playing sermon audio through speakers and
-capturing it from the phone in a fixed position.
+Full-strength suppression was tested first, in a room with a box fan running.
+
+The measurement came from a purpose-built rig — a standalone iOS benchmark app
+plus a Python controller, kept in its own project so that pipelines under test
+never touch shipping code. A PC plays sermon audio through speakers and drives
+the phone over a control socket; the phone sits in a fixed position, captures
+the room, applies the pipeline being tested, and streams to the platform, which
+retains the audio so a surprising result can be re-examined later. Five
+pipelines are comparable under identical conditions — raw, Apple AEC only, AEC
+plus the hand-written cleanup, DeepFilterNet3 alone, and AEC plus
+DeepFilterNet3 — with the suppression mix sweepable across runs.
+
+The session that settled this one recorded its own conditions: *"PC speakers
+provide speech playback only. Box fan on high, fixed position for whole session.
+No controller-side synthetic degradation applied. Phone remains in the same
+position as previous comparison runs."*
 
 At full strength the noise floor dropped 25 to 44 dB — and intelligibility went
 with it. The mask closes over quiet speech as readily as over broadband noise,

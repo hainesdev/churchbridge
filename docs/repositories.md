@@ -17,6 +17,38 @@ coupling them in Git would create false constraints in both directions. The
 relationship between versions is recorded as documentation instead, in
 [`../releases/components.yml`](../releases/components.yml).
 
+## Measurement
+
+| Repository | Contents | Status |
+| --- | --- | --- |
+| `hainesdev/ChurchBridgeAudioBench` | Standalone iOS benchmark harness for capture pipelines: a dedicated iPhone app plus a Python controller | Private; candidate for publication |
+
+ChurchBridge's capture decisions are made with a purpose-built instrument rather
+than by ear alone, and that instrument is a separate project because it has to
+be. It runs its own iPhone app — not the product app — so that a pipeline under
+test can be swapped without touching shipping code, and so a benchmark build can
+carry variants that would never belong in a service.
+
+The rig answers one question: *which client-side pipeline turns live room audio
+into the best STT-ready signal before it reaches the backend?* A PC acts as
+controller and playback source, a physical iPhone sits in the room and captures
+the acoustic playback, applies the selected pipeline, and streams to the
+platform. The controller drives the phone over a control socket, sequences runs,
+records latency, telemetry, and transcripts per run, and asks the platform to
+retain the resulting audio so a surprising result can be audited later without
+rebuilding the room setup.
+
+Five capture pipelines are directly comparable under identical conditions: raw,
+Apple AEC only, Apple AEC plus the hand-written cleanup filter, DeepFilterNet3
+alone, and Apple AEC plus DeepFilterNet3 — with the suppression mix sweepable
+across runs.
+
+It is private today. Before it could be published it needs a license file and
+DeepFilterNet attribution, since it carries its own copy of the DeepFilterNet3
+signal chain. Its `reports/` tree is gitignored and has never been committed,
+which matters: those reports contain transcripts of third-party sermon audio
+used as test material.
+
 ## Not public, and why
 
 | Component | Why it stays private |
