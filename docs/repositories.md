@@ -5,10 +5,6 @@ page is the authoritative map of what is public, what is not, and why.
 
 ## Public
 
-> **Status:** these repositories are private today. This section describes the
-> intended public structure; visibility changes when the publication checklist
-> clears.
-
 | Repository | Contents | Release cycle |
 | --- | --- | --- |
 | [`hainesdev/churchbridge`](https://github.com/hainesdev/churchbridge) | This meta-repository: product story, architecture overview, repository map, release manifest | Documentation only |
@@ -25,7 +21,7 @@ relationship between versions is recorded as documentation instead, in
 
 | Repository | Contents | Status |
 | --- | --- | --- |
-| `hainesdev/churchbridge-audio-bench` | Standalone iOS benchmark harness for capture pipelines: a dedicated iPhone app plus a Python controller | Private; candidate for publication |
+| [`churchbridge-audio-bench`](https://github.com/hainesdev/churchbridge-audio-bench) | Standalone iOS benchmark harness for capture pipelines: a dedicated iPhone app plus a Python controller | Public |
 
 ChurchBridge's capture decisions are made with a purpose-built instrument rather
 than by ear alone, and that instrument is a separate project because it has to
@@ -47,11 +43,9 @@ Apple AEC only, Apple AEC plus the hand-written cleanup filter, DeepFilterNet3
 alone, and Apple AEC plus DeepFilterNet3 — with the suppression mix sweepable
 across runs.
 
-It is private today. Before it could be published it needs a license file and
-DeepFilterNet attribution, since it carries its own copy of the DeepFilterNet3
-signal chain. Its `reports/` tree is gitignored and has never been committed,
-which matters: those reports contain transcripts of third-party sermon audio
-used as test material.
+Its `reports/` tree is gitignored and has never been committed, which matters:
+those reports contain transcripts of third-party sermon audio used as test
+material.
 
 ## Not public, and why
 
