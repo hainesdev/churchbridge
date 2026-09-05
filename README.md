@@ -227,8 +227,11 @@ This is a working system, not a proposal.
   /api/display/v1       /api/listen/v1
 ```
 
-The detailed event lifecycle — `feed_commit`, `feed_revision`, `caption_merge`,
-alignment payloads, persistence boundaries — lives in the platform repository.
+[`docs/audio-and-translation.md`](docs/audio-and-translation.md) covers the audio
+path in detail: the wire contract, both capture surfaces, the live on-device
+signal chain, and server ingest. The detailed event lifecycle — `feed_commit`,
+`feed_revision`, `caption_merge`, alignment payloads, persistence boundaries —
+lives in the platform repository.
 
 ## Repositories
 
