@@ -270,7 +270,8 @@ observance and use by charitable organizations. **A church can run ChurchBridge
 for its own congregation, free, forever.** That is deliberate. Commercial use of
 any kind requires a separate written license.
 
-Each repository carries a plain-language `LICENSE-FAQ.md`.
+Every repository, including this one, carries a plain-language
+[`LICENSE-FAQ.md`](LICENSE-FAQ.md).
 
 ## Where it's going
 
@@ -286,7 +287,8 @@ and congregational responses.
 
 Issues, questions, and field reports from real services are genuinely welcome —
 especially from churches running this in a sanctuary. Code contributions require
-a contributor license agreement; see [`CONTRIBUTING.md`](CONTRIBUTING.md).
+a contributor license agreement; see [`CONTRIBUTING.md`](CONTRIBUTING.md) and
+[`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
 
 ---
 
