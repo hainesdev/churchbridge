@@ -5,6 +5,10 @@ page is the authoritative map of what is public, what is not, and why.
 
 ## Public
 
+> **Status:** these repositories are private today. This section describes the
+> intended public structure; visibility changes when the publication checklist
+> clears.
+
 | Repository | Contents | Release cycle |
 | --- | --- | --- |
 | [`hainesdev/churchbridge`](https://github.com/hainesdev/churchbridge) | This meta-repository: product story, architecture overview, repository map, release manifest | Documentation only |
