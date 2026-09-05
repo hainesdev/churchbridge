@@ -25,7 +25,7 @@ relationship between versions is recorded as documentation instead, in
 
 | Repository | Contents | Status |
 | --- | --- | --- |
-| `hainesdev/ChurchBridgeAudioBench` | Standalone iOS benchmark harness for capture pipelines: a dedicated iPhone app plus a Python controller | Private; candidate for publication |
+| `hainesdev/churchbridge-audio-bench` | Standalone iOS benchmark harness for capture pipelines: a dedicated iPhone app plus a Python controller | Private; candidate for publication |
 
 ChurchBridge's capture decisions are made with a purpose-built instrument rather
 than by ear alone, and that instrument is a separate project because it has to

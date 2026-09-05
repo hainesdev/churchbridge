@@ -126,7 +126,7 @@ rebuilding around Apple's current sample. The simulator is explicitly treated as
 unfit for judging audio quality — build and flow validation only.
 
 Those decisions are made with an instrument rather than a hunch. A separate
-project, [`ChurchBridgeAudioBench`](docs/repositories.md), pairs a standalone iOS
+project, [`churchbridge-audio-bench`](docs/repositories.md), pairs a standalone iOS
 benchmark app with a Python controller: it plays sermon audio into a real room,
 captures it from a phone in a fixed position, and compares five capture
 pipelines under identical acoustic conditions.
