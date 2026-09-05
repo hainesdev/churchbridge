@@ -247,6 +247,13 @@ above.
 
 See [`docs/repositories.md`](docs/repositories.md) for the full map, including
 the measurement rig and what is intentionally not published.
+
+**Related work:**
+[Real-Time Voice Systems](https://github.com/hainesdev/realtime-voice-systems) —
+telephony and SIP/Realtime engineering from the same author: AI call reception
+that rings a human first and fails to voicemail rather than to a dead end, and
+speaker-attributed transcription derived from PBX media topology instead of
+guessed from a mixed recording.
 [`releases/components.yml`](releases/components.yml) records the reviewed commit
 of each component for a named release — a documentation manifest, not a
 submodule lockfile, because the platform and the app have independent release

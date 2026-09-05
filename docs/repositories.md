@@ -64,3 +64,12 @@ project used as a dependency — not forked, not rebranded.
 
 Each public repository carries its own third-party notices covering runtime
 dependencies, model assets, and any bundled data.
+
+## Related work
+
+[`hainesdev/realtime-voice-systems`](https://github.com/hainesdev/realtime-voice-systems)
+is a separate portfolio repository covering telephony and SIP/Realtime work by
+the same author — AI call reception with human-first handling and explicit
+fallbacks, and speaker-attributed transcription built from PBX media topology.
+It is licensed under Apache-2.0 rather than PolyForm Noncommercial, and it is
+not part of the ChurchBridge product or its release manifest.
