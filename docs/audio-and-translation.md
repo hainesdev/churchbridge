@@ -161,9 +161,11 @@ conversion resamples by linear interpolation with no anti-aliasing pre-filter,
 so content above 8 kHz folds back into the band on the way down to 16 kHz. The
 effect is modest for speech but it sits upstream of every recognition result.
 
-**The 48 kHz assumption is implicit.** DeepFilterNet3's configuration fixes
-48 kHz, and it is invoked with whatever the hardware input rate happens to be.
-On iPhone hardware these agree, but nothing enforces the match.
+**The 48 kHz requirement is enforced, not assumed.** DeepFilterNet3's
+configuration fixes 48 kHz. The audio session requests that rate explicitly, and
+the processor guards it: given any other rate it returns the audio unenhanced
+and surfaces a warning naming the rate it actually received, rather than feeding
+the model input it cannot handle.
 
 **Benchmark scoring is not yet reliable.** The capture rig's playback timing
 offset makes word error rate untrustworthy for comparing nearby configurations.

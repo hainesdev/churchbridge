@@ -221,10 +221,6 @@ interpolation with no anti-aliasing filter, so content above 8 kHz folds back
 into the speech band. The effect is modest, it is cheap to fix, and it sits
 upstream of every recognition result.
 
-**The 48 kHz assumption is implicit.** The noise suppression model's
-configuration fixes 48 kHz and is invoked with whatever the hardware input rate
-happens to be. On iPhone hardware these agree. Nothing enforces it.
-
 **The two capture surfaces disagree on principle.** The browser path disables
 noise suppression and lets the recognizer cope; the phone runs neural
 suppression before sending. Both choices are defensible for their context, but
