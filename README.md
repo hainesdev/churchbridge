@@ -290,6 +290,48 @@ flattened into "mostly Spanish"; and a display that distinguishes direct English
 from translated Spanish, mixed segments, and speaker roles such as leader lines
 and congregational responses.
 
+## Acknowledgments
+
+ChurchBridge leans on other people's work in ways worth naming specifically.
+
+**DeepFilterNet3** — Hendrik Schröter, Tobias Rosenkranz, Alberto N.
+Escalante-B., and Andreas Maier. The noise suppression architecture and the
+trained model are theirs. This project reimplements the streaming signal chain
+in Swift so it can run on an iPhone; the hard part — the model that makes it
+work — is not ours.
+
+> Schröter, H., Rosenkranz, T., Escalante-B., A. N., and Maier, A.
+> "DeepFilterNet: Perceptually Motivated Real-Time Speech Enhancement."
+> INTERSPEECH, 2023.
+
+**[aufklarer](https://huggingface.co/aufklarer/DeepFilterNet3-CoreML)** — the
+INT8-palettized Core ML conversion of DeepFilterNet3. Converting and quantizing
+that model was not work this project did, and without it there would be no
+on-device path at all.
+
+**[soniqo/speech-swift](https://github.com/soniqo/speech-swift)** — the
+`.npz`/`.npy` auxiliary-data loading, including the ZIP64 handling, is derived
+from this project. It is the unglamorous code that gets the model's filterbank
+and normalization state off disk, and it would have taken a day to write badly.
+
+**[Ghostkwebb/MetalVoice](https://github.com/Ghostkwebb/MetalVoice)** — read as
+a streaming reference while the capture path was being designed. No code was
+taken from it, but it shortened the road.
+
+**[dscottpi/bibles](https://github.com/dscottpi/bibles)** — the Bible corpus
+used for citation lookup and the offline reader.
+
+**Apple's `Using Voice Processing` sample** — after two failed attempts at the
+audio graph, the working design came from rebuilding around it.
+
+**The services doing the heavy lifting at runtime**: speech recognition by
+[Deepgram](https://deepgram.com) (Nova) or Google Cloud Speech, translation by
+Google, and the discourse enrichment — the judgments about whether a thought is
+complete — by [Claude](https://www.anthropic.com).
+
+Full license terms for everything above are in each repository's
+`THIRD-PARTY-NOTICES.md`.
+
 ## Contributing
 
 Issues, questions, and field reports from real services are genuinely welcome —
